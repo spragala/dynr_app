@@ -1,0 +1,21 @@
+<h1> Restaurants </h1>
+
+<div>
+  <%= link_to "New Restaurant", new_restaurant_path %>
+</div>
+
+
+<div class="restaurants-list">
+
+  <% @restaurants.each do |rest| %>
+
+    <div>
+      <h3><%= rest.name %></h3>
+      <p><%= rest.address %></p>
+      <p><%=rest.style %></p>
+      <img src='<%= rest.image %>'/>
+    </div>
+    <br>
+  <% end %>
+
+</div>

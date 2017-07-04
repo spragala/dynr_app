@@ -1,0 +1,9 @@
+<%= form_for @restaurant do |f| %>
+  <div>
+    <%= f.text_field :name, placeholder: "Name" %>
+  </div>
+  <div>
+    <%= f.text_field :address, placeholder: "City i.e. Boston, New York City" %>
+  </div>
+  <%= f.submit %>
+<% end %>
