@@ -14,3 +14,18 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.image img {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin-right: 3px;
+}
+
+.restaurant-row {
+  margin-bottom: 15px;
+}
+
+p {
+  margin: 0px;
+}

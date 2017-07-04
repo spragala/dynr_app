@@ -1,21 +1,27 @@
 <h1> Restaurants </h1>
 
 <div>
-  <%= link_to "New Restaurant", new_restaurant_path %>
+  <%= link_to "New Restaurant", new_restaurant_path, class: 'btn btn-primary' %>
 </div>
 
-
-<div class="restaurants-list">
-
-  <% @restaurants.each do |rest| %>
-
-    <div>
-      <h3><%= rest.name %></h3>
-      <p><%= rest.address %></p>
-      <p><%=rest.style %></p>
-      <img src='<%= rest.image %>'/>
+<% @restaurants.each do |rest| %>
+  <div class="container">
+    <div class="row restaurant-row">
+      <div class="col-xs-4 col-md-2 image">
+        <img src='<%= rest.image %>'/>
+      </div>
+      <div class="col-xs-5 col-md-4">
+        <h4><%= rest.name %></h4>
+        <p><%= rest.address %></p>
+        <p><em><%=rest.style %></em></p>
+      </div>
+      <div class="col-xs-4 notes">
+        <p><strong>Notes:</strong></p>
+      </div>
+      <div>
+        <%= link_to "Delete", restaurant_path(rest), method: :delete, class: 'btn btn-default pull-right new-btn' %>
+      </div>
+      <br>
     </div>
-    <br>
-  <% end %>
-
-</div>
+  </div>
+<% end %>

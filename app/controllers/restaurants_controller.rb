@@ -25,7 +25,7 @@ class RestaurantsController < ApplicationController
     new_restaurant = Hash.new{|h, k| h[k] = ''}
 
     new_restaurant[:name] << response['name']
-    new_restaurant[:address] << response['location']['display_address'][0]
+    new_restaurant[:address] << response['location']['display_address'].join(', ')
     new_restaurant[:style] << response['categories'][0]['title']
     new_restaurant[:image] << response['photos'][1]
 
@@ -42,9 +42,12 @@ class RestaurantsController < ApplicationController
     #   raise response.response
     # end
 
-    restaurant = current_user.restaurants.build(new_restaurant)
-    if restaurant.save
-      redirect_to restaurants_path
+    @restaurant = current_user.restaurants.build(new_restaurant)
+    if @restaurant.save
+      redirect_to restaurants_path(@restaurant)
+    # else
+    #   flash[:error] = current_user.restaurants.full_messages.join(' ')
+    #   render :new
     end
 
   end
@@ -52,7 +55,7 @@ class RestaurantsController < ApplicationController
   def destroy
     restaurant = current_user.restaurants.find(params[:id])
     restaurant.destroy
-    redirect_to restaurants_path, notice: "Deleted Restaurant: #{restaurant.name}"
+    redirect_to restaurants_path(restaurant), notice: "Deleted Restaurant: #{restaurant.name}"
   end
 
   private

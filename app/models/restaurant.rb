@@ -1,6 +1,6 @@
 class Restaurant < ApplicationRecord
   belongs_to :user
 
-  validates :user, presence: true, uniqueness: { scope: :user_id }
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :user_id }
+  validates :user, presence: true
 end
