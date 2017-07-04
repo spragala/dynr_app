@@ -36,11 +36,6 @@ class RestaurantsController < ApplicationController
     # TODO .map the address to get full address`
 
     # TODO add error handling for failed searches. Try below.
-    # if response.success?
-    #   response
-    # else
-    #   raise response.response
-    # end
 
     @restaurant = current_user.restaurants.build(new_restaurant)
     if @restaurant.save

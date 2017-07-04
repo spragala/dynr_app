@@ -1,8 +1,9 @@
-<h1> Restaurants </h1>
 
-<div>
-  <%= link_to "New Restaurant", new_restaurant_path, class: 'btn btn-primary' %>
+
+<div class="col-xs-offset-1 col-xs-11">
+<h1 class="index-title"> Restaurants </h1>
 </div>
+<br>
 
 <% @restaurants.each do |rest| %>
   <div class="container">
@@ -21,7 +22,8 @@
       <div>
         <%= link_to "Delete", restaurant_path(rest), method: :delete, class: 'btn btn-default pull-right new-btn' %>
       </div>
-      <br>
     </div>
+    <hr>
   </div>
+
 <% end %>

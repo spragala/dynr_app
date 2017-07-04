@@ -1,6 +1,38 @@
-<div id="clearance" class="sign-in">
-  <h2><%= t(".title") %></h2>
+<div id='clearance' class='sign-in-container'>
+  <section class='welcome-section'>
+  </section>
 
-  <%= render partial: '/sessions/form' %>
+  <div class="row">
+    <%= render partial: '/sessions/form' %>
+  </div>
+
+
+    <div class='row'>
+      <div class='col-sm-offset-1 col-sm-10'>
+        <div class='col-sm-4'>
+          <%= image_tag('plate-fork.svg', class: 'welcome-icon') %>
+          <h3>All your spots in one place</h3>
+          <p>Got a list of restaurants you want to try? Easily store them with
+            Dynr and create a searchable, custom list of all the places you want to eat.</p>
+        </div>
+        <div class='col-sm-4'>
+          <%= image_tag('notepad.png', class: 'welcome-icon') %>
+          <h3>Get more than just a list</h3>
+          <p>Simply type in the restaurant and the city you want to try and Dynr will get all
+            the info you need.</p>
+        </div>
+        <div class='col-sm-4'>
+          <%= image_tag('mag-glass.png', class: 'welcome-icon') %>
+          <h3>Managing made easy</h3>
+          <p>Filtered searches allow you to find the right place to eat no matter where you are.
+          Dynr includes maps and other information to make it easy to find the place you want to try.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
 
 </div>

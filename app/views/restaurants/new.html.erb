@@ -1,9 +1,24 @@
-<%= form_for @restaurant do |f| %>
-  <div>
-    <%= f.text_field :name, placeholder: "Name" %>
+<div class='container col-xs-12' id='new-restaurant-container'>
+
+<%= form_for(@restaurant, html: { class: 'form-horizontal col-sm-offset-2 col-sm-8 new-form' }) do |f| %>
+
+  <div class='field form-group'>
+    <%= f.label :name, class: 'col-sm-offset-1 col-sm-2 control-label' %>
+      <div class="col-sm-6">
+        <%= f.text_field :name, placeholder: 'Full Name', class: 'form-control' %>
+      </div>
   </div>
-  <div>
-    <%= f.text_field :address, placeholder: "City i.e. Boston, New York City" %>
+  <div class='field form-group'>
+    <%= f.label :address, 'City', class: 'col-sm-offset-1 col-sm-2 control-label' %>
+      <div class="col-sm-6">
+        <%= f.text_field :address, placeholder: 'City i.e. New York City', class: 'form-control' %>
+      </div>
   </div>
-  <%= f.submit %>
+  <div class='actions form-group'>
+    <div class='col-sm-offset-3 col-sm-10'>
+      <%= f.submit 'Add Restaurant', class: 'btn btn-default' %>
+    </div>
+  </div>
 <% end %>
+
+</div>
