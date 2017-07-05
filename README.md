@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Dynr
 
-Things you may want to cover:
+Dynr is a simple app built on rails that lets a user make a list of restaurants that they want to try. Submitting the restaurant's name and city will query Yelp's API to return more data. The list is searchable by name. In the future it will be searchable by cuisine and by city. Google maps integration is also planned.
 
-* Ruby version
+## Technology
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Ruby 2.4.1
+Rails 5.1
+Clearance gem for Authorization
+bootstrap
+jquery
