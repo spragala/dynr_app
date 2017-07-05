@@ -27,10 +27,23 @@
   margin-bottom: 15px;
 }
 
+body {
+  background-color: #eee;
+}
+
 // Header Nav Styling
 
-p.navbar-text {
+
+.navbar-fixed-top.fixednav {
+    background-color: rgba(0,0,0, 0.3);
+  }
+
+a.navbar-text {
+  font-size: 64px;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
   margin: 0;
+  text-decoration: none;
 }
 
 a.sign-in {
@@ -43,10 +56,20 @@ a.new-restaurant {
 }
 
 .sign-out, .new-restaurant {
-  margin-top: 15px;
+  margin-top: 25px;
+}
+
+.sign-out:hover, .new-restaurant:hover {
+  box-shadow: 0px 15px 10px -10px #666;
 }
 
 // Restaurants index
+
+div.container {
+  margin-top: -60px;
+  background-color: #fff;
+  border-radius: 8px;
+}
 
 .index-title {
   margin-bottom: 50px;
@@ -98,7 +121,7 @@ div.sign-in-container {
   margin: 0;
 }
 
-section.welcome-section {
+section.welcome-section, .rest-section {
   background: url('./kris-atomic-39750.jpg') no-repeat center center;
   background-size: cover;
   height: 300px;
@@ -164,4 +187,10 @@ form.sign-up-form {
 .btn.su-login {
   border: none;
   color: #999;
+}
+
+@media (max-width: 770px) {
+  h1.navbar-text.navbar-left {
+    display: inline;
+  }
 }
