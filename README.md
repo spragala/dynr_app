@@ -1,6 +1,6 @@
 # README
 
-### Dynr
+## Dynr
 
 Dynr is a simple app built on rails that lets a user make a list of restaurants that they want to try. Submitting the restaurant's name and city will query Yelp's API to return more data. The list is searchable by name. In the future it will be searchable by cuisine and by city. Google maps integration is also planned.
 

@@ -1,10 +1,11 @@
 <div class='container col-xs-12' id='new-restaurant-container'>
 
 <%= form_for(@restaurant, html: { class: 'form-horizontal col-sm-offset-2 col-sm-8 new-form' }) do |f| %>
-  <div class='search-instructions col-sm-offset-2'>
+  <div class='search-instructions col-sm-offset-2 col-sm-8'>
     <h1> Add a favorite! </h1>
     <p> Enter the restaurant name and the city to add it to your list.
-      Make sure it's the full name of the restaurant. </p>
+      Make sure it's the full name of the restaurant and it's spelled correctly. </p>
+      <hr>
   </div>
   <div class='field form-group'>
     <%= f.label :name, class: 'sr-only' %>

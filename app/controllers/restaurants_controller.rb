@@ -38,6 +38,8 @@ class RestaurantsController < ApplicationController
       # TODO merge integer into the Hash
       # new_restaurant.merge(:rating => response['rating'])
 
+      # TODO more regex on form - remove apostrophes
+
       # TODO notes merge into new_restaurant array
 
       @restaurant = current_user.restaurants.build(new_restaurant)
