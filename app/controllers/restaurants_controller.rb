@@ -4,6 +4,11 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurants = current_user.restaurants
+    if params[:search]
+      @restaurants = current_user.restaurants.search(params[:search]).order("created_at DESC")
+    else
+      @restaurants = current_user.restaurants.order("created_at ASC")
+    end
   end
 
   def new

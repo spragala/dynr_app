@@ -1,10 +1,19 @@
 
 
 <div class='container'>
-  <div class='col-xs-12'>
-  <h1 class='index-title'> Restaurants </h1>
+  <div class='row'>
+    <div class='col-xs-6'>
+    <h1 class='index-title'> Your Favorites! </h1>
+    </div>
+    <div class='col-xs-6'>
+      <%= form_tag(restaurants_path, :method => "get", id: "search-form", class: "navbar-form navbar-right") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Restaurants", class: "form-control" %>
+        <%= submit_tag "Search", :name => nil, class: "btn btn-default search" %>
+        <%= link_to 'View All', restaurants_path, class: 'btn btn-default'%>
+      <% end %>
+    </div>
   </div>
-  <br>
+    <br>
 
   <% @restaurants.each do |rest| %>
       <div class='row restaurant-row'>
@@ -17,7 +26,7 @@
           <p class='rest-style'><em><%=rest.style %></em></p>
         </div>
         <div class='col-xs-4 notes'>
-          <p><strong>Notes:</strong></p>  
+          <p><strong>Notes:</strong></p>
         </div>
         <div>
           <%= link_to '', restaurant_path(rest), method: :delete, class: 'btn btn-default pull-right delete-btn glyphicon glyphicon-trash' %>
