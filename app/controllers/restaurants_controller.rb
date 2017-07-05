@@ -27,26 +27,29 @@ class RestaurantsController < ApplicationController
     endpoint = 'https://api.yelp.com/v3/businesses/' << url_rest
     response = HTTParty.get( endpoint, :headers => headers)
 
-    new_restaurant = Hash.new{|h, k| h[k] = ''}
+    if response.success?
+      new_restaurant = Hash.new{|h, k| h[k] = ''}
 
-    new_restaurant[:name] << response['name']
-    new_restaurant[:address] << response['location']['display_address'].join(', ')
-    new_restaurant[:style] << response['categories'][0]['title']
-    new_restaurant[:image] << response['photos'][0]
+      new_restaurant[:name] << response['name']
+      new_restaurant[:address] << response['location']['display_address'].join(', ')
+      new_restaurant[:style] << response['categories'][0]['title']
+      new_restaurant[:image] << response['photos'][0]
 
-    # TODO merge integer into the Hash
-    # new_restaurant.merge(:rating => response['rating'])
+      # TODO merge integer into the Hash
+      # new_restaurant.merge(:rating => response['rating'])
 
-    # TODO add error handling for failed searches.
+      # TODO notes merge into new_restaurant array
 
-    # TODO notes merge into new_restaurant array
-
-    @restaurant = current_user.restaurants.build(new_restaurant)
-    if @restaurant.save
-      redirect_to restaurants_path(@restaurant)
-     else
-       flash[:error] = response['error']['description']
-       render :new
+      @restaurant = current_user.restaurants.build(new_restaurant)
+      if @restaurant.save
+        redirect_to restaurants_path(@restaurant)
+       else
+         flash[:error] = 'Something went wrong, try your search again.'
+         redirect_to new_restaurant_path
+      end
+    else
+      flash[:error] = 'No restaurant found with that name, please try again.'
+      redirect_to new_restaurant_path
     end
 
   end
