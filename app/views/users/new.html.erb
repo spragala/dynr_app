@@ -1,15 +1,18 @@
-<div id="clearance" class="sign-up">
-  <h2><%= t(".title") %></h2>
-
-  <%= form_for @user do |form| %>
+<div id="clearance" class="sign-up-container">
+  <%= form_for @user, html: { class: 'form-horizontal col-sm-offset-3 col-sm-6 sign-up-form' } do |form| %>
+    <div class="col-sm-offset-1">
+      <h3 class="su-form-text">Start organizing!</h3>
+      <p> Enter your information below to start using Dynr.</p>
+    </div>
+    <hr>
     <%= render partial: '/users/form', object: form %>
 
-    <div class="submit-field">
-      <%= form.submit %>
+    <div class='submit-field actions form-group'>
+      <div class='col-sm-offset-3 col-sm-7'>
+        <%= form.submit 'Sign Up', class: 'btn btn-default' %>
+        <%= link_to 'Cancel', sign_in_path, class: 'btn btn-default pull-right su-login' %>
+      </div>
     </div>
 
-    <div class="other-links">
-      <%= link_to t(".sign_in"), sign_in_path %>
-    </div>
   <% end %>
 </div>

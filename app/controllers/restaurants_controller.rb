@@ -27,22 +27,21 @@ class RestaurantsController < ApplicationController
     new_restaurant[:name] << response['name']
     new_restaurant[:address] << response['location']['display_address'].join(', ')
     new_restaurant[:style] << response['categories'][0]['title']
-    new_restaurant[:image] << response['photos'][1]
-
-    # TODO new_restaurant.merge(:rating => response['rating'])
+    new_restaurant[:image] << response['photos'][0]
 
     # TODO merge integer into the Hash
+    # new_restaurant.merge(:rating => response['rating'])
 
-    # TODO .map the address to get full address`
+    # TODO add error handling for failed searches.
 
-    # TODO add error handling for failed searches. Try below.
+    # TODO notes merge into new_restaurant array
 
     @restaurant = current_user.restaurants.build(new_restaurant)
     if @restaurant.save
       redirect_to restaurants_path(@restaurant)
-    # else
-    #   flash[:error] = current_user.restaurants.full_messages.join(' ')
-    #   render :new
+     else
+       flash[:error] = response['error']['description']
+       render :new
     end
 
   end

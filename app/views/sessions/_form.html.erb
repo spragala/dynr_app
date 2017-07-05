@@ -1,22 +1,23 @@
 
-  <%= form_for :session, url: session_path, html: { class: 'form-horizontal col-sm-offset-3 col-sm-6 login-form' } do |form| %>
+  <%= form_for :session, url: session_path, html: { class: 'form-horizontal col-sm-offset-8 col-sm-3 login-form' } do |form| %>
     <h3 class="login-title"> Login </h3>
+    <hr>
     <div class='text-field form-group'>
-      <%= form.label :email, class: 'col-sm-offset-1 col-sm-2 control-label' %>
-      <div class="col-sm-7">
-        <%= form.text_field :email, type: 'email', class: 'form-control' %>
+      <%= form.label :email, class: 'sr-only' %>
+      <div class="col-sm-offset-1 col-sm-10">
+        <%= form.text_field :email, type: 'email', class: 'form-control', placeholder: 'Email Address' %>
       </div>
     </div>
 
     <div class='password-field form-group'>
-      <%= form.label :password, class: 'col-sm-offset-1 col-sm-2 control-label' %>
-      <div class='col-sm-7'>
-        <%= form.password_field :password, class: 'form-control' %>
+      <%= form.label :password, class: 'sr-only' %>
+      <div class='col-sm-offset-1 col-sm-10'>
+        <%= form.password_field :password, class: 'form-control', placeholder: 'Password' %>
       </div>
     </div>
 
     <div class='submit-field actions form-group'>
-      <div class='col-sm-offset-3 col-sm-10'>
+      <div class='col-sm-offset-1 col-sm-11'>
         <%= form.submit 'Log in', class: 'btn btn-default' %>
         <%= link_to t(".forgot_password"), new_password_path, class: 'forgot-password' %>
       </div>
