@@ -36,8 +36,8 @@ class RestaurantsController < ApplicationController
       new_restaurant[:image] << response['photos'][0]
 
       # TODO merge integer into the Hash
-      # new_restaurant.merge(:rating => response['rating'])
-
+      # rating = response['rating'].to_number
+      # new_restaurant << rating
       # TODO more regex on form - remove apostrophes
 
       # TODO notes merge into new_restaurant array

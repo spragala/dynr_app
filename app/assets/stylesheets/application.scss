@@ -122,7 +122,7 @@ div.sign-in-container {
 }
 
 section.welcome-section, .rest-section {
-  background: url('./kris-atomic-39750.jpg') no-repeat center center;
+  background: url('<%= asset_path("kris-atomic-39750.jpg") %>') no-repeat center center;
   background-size: cover;
   height: 300px;
   margin: 0;
