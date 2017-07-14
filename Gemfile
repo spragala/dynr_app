@@ -14,6 +14,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bcrypt', '~> 3.1.7'
 gem 'clearance', '~> 1.16.0'
+gem 'figaro'
 
 
 

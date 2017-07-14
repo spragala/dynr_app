@@ -16,8 +16,9 @@ class RestaurantsController < ApplicationController
   end
 
   def create
+
     headers = {
-      "Authorization" => "Bearer UKWxH_2pKgsmhYvw3sfPK08BPbQFVB2ZkM4umAhZ47NAS7Z-YNdBY-ggeF8mv4JdrWcwNuk7aAErQEwLZkiHehETJTHRMoawVexgx4DU-SSZWboxyaUxBRciTM0wWXYx"
+      "Authorization" => "Bearer " + ENV['yelp_api_key']
       }
 
     url_name = restaurant_params['name'].downcase
@@ -52,6 +53,7 @@ class RestaurantsController < ApplicationController
     else
       flash[:error] = 'No restaurant found with that name, please try again.'
       redirect_to new_restaurant_path
+      # render: new ^
     end
 
   end
@@ -62,10 +64,19 @@ class RestaurantsController < ApplicationController
     redirect_to restaurants_path(restaurant), notice: "Deleted Restaurant: #{restaurant.name}"
   end
 
+  # def edit {
+  #   @notes = current_user.restaurants.find(params[:id])
+  #   if @notes.update restaurant_params
+  #     redirect to restaurants_path
+  #   else
+  #     flash[:error]
+  #     render:
+  # }
+
   private
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :address)
+    params.require(:restaurant).permit(:name, :address, :notes)
   end
 
 end
