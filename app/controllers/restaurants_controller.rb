@@ -3,7 +3,6 @@ class RestaurantsController < ApplicationController
   before_action :require_login
 
   def index
-    @restaurants = current_user.restaurants
     if params[:search]
       @restaurants = current_user.restaurants.search(params[:search]).order("created_at DESC")
     else
@@ -15,19 +14,32 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.restaurants.build
   end
 
+  def edit
+  end
+
+  def update
+    # TODO - restaurant = current_user.restaurants.find(params[:id])
+    # if @restaurant.update restaurant_params
+    # redirect_to restaurants_path
+  end
+
   def create
 
+    # Yelp API - Auth Header
     headers = {
       "Authorization" => "Bearer " + ENV['yelp_api_key']
       }
 
+    # Params to correct format for url
     url_name = restaurant_params['name'].downcase
     url_city = restaurant_params['address'].downcase
     url_rest = url_name.gsub(' ','-') + '-' + url_city.gsub(' ','-')
 
+    # HTTParty
     endpoint = 'https://api.yelp.com/v3/businesses/' << url_rest
     response = HTTParty.get( endpoint, :headers => headers)
 
+    # Response to generate Restaurant
     if response.success?
       new_restaurant = Hash.new{|h, k| h[k] = ''}
 
@@ -39,9 +51,10 @@ class RestaurantsController < ApplicationController
       # TODO merge integer into the Hash
       # rating = response['rating'].to_number
       # new_restaurant << rating
+
       # TODO more regex on form - remove apostrophes
 
-      # TODO notes merge into new_restaurant array
+
 
       @restaurant = current_user.restaurants.build(new_restaurant)
       if @restaurant.save
@@ -53,7 +66,6 @@ class RestaurantsController < ApplicationController
     else
       flash[:error] = 'No restaurant found with that name, please try again.'
       redirect_to new_restaurant_path
-      # render: new ^
     end
 
   end
@@ -64,14 +76,7 @@ class RestaurantsController < ApplicationController
     redirect_to restaurants_path(restaurant), notice: "Deleted Restaurant: #{restaurant.name}"
   end
 
-  # def edit {
-  #   @notes = current_user.restaurants.find(params[:id])
-  #   if @notes.update restaurant_params
-  #     redirect to restaurants_path
-  #   else
-  #     flash[:error]
-  #     render:
-  # }
+
 
   private
 
