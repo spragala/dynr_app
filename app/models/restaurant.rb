@@ -7,5 +7,9 @@ class Restaurant < ApplicationRecord
   def self.search(search)
     where("name ILIKE ?", "%#{search}%")
   end
-  
+
+  def self.get_rest
+    # TODO - move Yelp API call into here
+  end
+
 end

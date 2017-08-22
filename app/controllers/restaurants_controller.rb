@@ -6,7 +6,7 @@ class RestaurantsController < ApplicationController
     if params[:search]
       @restaurants = current_user.restaurants.search(params[:search]).order("created_at DESC")
     else
-      @restaurants = current_user.restaurants.order("created_at ASC")
+      @restaurants = current_user.restaurants.order("created_at DESC")
     end
   end
 
@@ -33,32 +33,33 @@ class RestaurantsController < ApplicationController
     # Params to correct format for url
     url_name = restaurant_params['name'].downcase
     url_city = restaurant_params['address'].downcase
-    url_rest = url_name.gsub(' ','-') + '-' + url_city.gsub(' ','-')
+    url_rest = 'term=' + url_name.gsub(' ','-') + '&' + 'location=' + url_city.gsub(' ','-')
 
-    # HTTParty
-    endpoint = 'https://api.yelp.com/v3/businesses/' << url_rest
+    # HTTParty - businesses/search endpoint
+    endpoint = 'https://api.yelp.com/v3/businesses/search?' << url_rest
     response = HTTParty.get( endpoint, :headers => headers)
 
-    # Response to generate Restaurant
+    # Response to generate new Restaurant
+    # TODO loop through the info and cache the resposes for client to pick which restaurant
+    # is the correct one IF there are multiple responses
     if response.success?
       new_restaurant = Hash.new{|h, k| h[k] = ''}
 
-      new_restaurant[:name] << response['name']
-      new_restaurant[:address] << response['location']['display_address'].join(', ')
-      new_restaurant[:style] << response['categories'][0]['title']
-      new_restaurant[:image] << response['photos'][0]
+      new_restaurant[:name] << response['businesses'][0]['name']
+      new_restaurant[:address] << response['businesses'][0]['location']['display_address'].join(', ')
+      new_restaurant[:style] << response['businesses'][0]['categories'][0]['title']
+      new_restaurant[:image] << response['businesses'][0]['image_url']
+      rating = response['businesses'][0]['rating'].to_i
+      new_restaurant[:rating] = rating
 
-      # TODO merge integer into the Hash
-      # rating = response['rating'].to_number
-      # new_restaurant << rating
+
+
 
       # TODO more regex on form - remove apostrophes
 
-
-
       @restaurant = current_user.restaurants.build(new_restaurant)
       if @restaurant.save
-        redirect_to restaurants_path(@restaurant)
+        redirect_to restaurants_path
        else
          flash[:error] = 'Something went wrong, try your search again.'
          redirect_to new_restaurant_path
@@ -75,8 +76,6 @@ class RestaurantsController < ApplicationController
     restaurant.destroy
     redirect_to restaurants_path(restaurant), notice: "Deleted Restaurant: #{restaurant.name}"
   end
-
-
 
   private
 

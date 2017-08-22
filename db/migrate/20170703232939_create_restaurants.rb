@@ -6,7 +6,11 @@ class CreateRestaurants < ActiveRecord::Migration[5.1]
       t.string :address
       t.string :style
       t.string :image
-      t.string :rating
+      t.decimal :rating
+      t.string :phone
+      t.string :url
+      t.decimal :latitude
+      t.decimal :longitude
       t.belongs_to :user, null: false, foreign_key: true
 
       t.timestamps null: false
