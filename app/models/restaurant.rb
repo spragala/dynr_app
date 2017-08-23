@@ -8,8 +8,27 @@ class Restaurant < ApplicationRecord
     where("name ILIKE ?", "%#{search}%")
   end
 
-  def self.get_rest
-    # TODO - move Yelp API call into here
+  def self.get_rest(input)
+      # Yelp API - Auth Header
+    headers = {
+      "Authorization" => "Bearer " + ENV['yelp_api_key']
+      }
+
+    # Params to correct format for url
+    url_name = input['name'].downcase
+    url_city = input['address'].downcase
+    url_rest = 'term=' + url_name.gsub(' ','-') + '&' + 'location=' + url_city.gsub(' ','-')
+
+    # HTTParty - businesses/search endpoint
+    endpoint = 'https://api.yelp.com/v3/businesses/search?' << url_rest
+    response = HTTParty.get( endpoint, :headers => headers)
+
+    if response.success?
+
+    else
+      flash[:error] = 'No restaurant found with that name, please try again.'
+      redirect_to new_restaurant_path
+    end
   end
 
 end
