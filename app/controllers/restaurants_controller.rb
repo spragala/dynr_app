@@ -52,18 +52,15 @@ class RestaurantsController < ApplicationController
       rating = response['businesses'][0]['rating'].to_i
       new_restaurant[:rating] = rating
 
-
-
-
-      # TODO more regex on form - remove apostrophes
-
       @restaurant = current_user.restaurants.build(new_restaurant)
+
       if @restaurant.save
         redirect_to restaurants_path
        else
          flash[:error] = 'Something went wrong, try your search again.'
          redirect_to new_restaurant_path
       end
+      
     else
       flash[:error] = 'No restaurant found with that name, please try again.'
       redirect_to new_restaurant_path
