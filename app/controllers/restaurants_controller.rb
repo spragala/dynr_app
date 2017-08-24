@@ -21,7 +21,8 @@ class RestaurantsController < ApplicationController
     # if multiple display multiples
     # display with add button
     # when button clicked create new
-    explode
+
+
   end
 
   def create
