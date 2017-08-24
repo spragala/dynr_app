@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
   # include HTTParty
   before_action :require_login
+  before_action :pick_rest, only: [:create]
 
   def index
     if params[:search]
@@ -14,29 +15,18 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.restaurants.build
   end
 
-  def edit
-  end
-
-  def update
-    # TODO - restaurant = current_user.restaurants.find(params[:id])
-    # if @restaurant.update restaurant_params
-    # redirect_to restaurants_path
-  end
-
   def pick_rest
-      @restaurant = current_user.restaurants.get_rest(restaurant_params)
+    @restaurant = current_user.restaurants.get_rest(params[:restaurant])
+    # if one response create new
+    # if multiple display multiples
+    # display with add button
+    # when button clicked create new
+    explode
   end
 
   def create
 
-  # Yelp API - Auth Header
-
-
   # Response to generate new Restaurant
-
-  # TODO loop through the info and cache the resposes for client to pick which restaurant
-  # is the correct one IF there are multiple responses
-
 
     new_restaurant = Hash.new{|h, k| h[k] = ''}
 

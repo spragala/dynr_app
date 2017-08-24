@@ -24,7 +24,7 @@ class Restaurant < ApplicationRecord
     response = HTTParty.get( endpoint, :headers => headers)
 
     if response.success?
-
+      return response['businesses']
     else
       flash[:error] = 'No restaurant found with that name, please try again.'
       redirect_to new_restaurant_path
