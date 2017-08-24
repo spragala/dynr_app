@@ -1,0 +1,20 @@
+<% @restaurant.each do |rest| %>
+    <div class='row restaurant-row'>
+      <div class='col-xs-4 col-md-2 image'>
+        <img src='<%= rest['image_url'] %>'/>
+      </div>
+      <div class='col-xs-5 col-md-4'>
+        <h4 class='rest-name'><%= rest['name'] %></h4>
+        <p class='rest-address'><%= rest['location']['display_address'][0]%>.,  <%=rest['location']['display_address'][1]%></p>
+        <p class='rest-style'><em><%=rest['categories'][0]['title'] %></em></p>
+        <p class='rating'>Rating: <%=rest['rating'] %></p>
+      </div>
+      <div class='col-xs-4 notes'>
+        <p><strong>Notes:</strong></p>
+      </div>
+      <div>
+        <%= link_to '', restaurant_path(rest['id']), method: :delete, class: 'btn btn-default pull-right delete-btn glyphicon glyphicon-trash' %>
+      </div>
+    </div>
+    <hr>
+<% end %>
