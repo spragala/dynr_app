@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
   # include HTTParty
   before_action :require_login
-  before_action :pick_rest, only: [:create]
+  # before_action :pick_rest, only: [:create]
 
   def index
     if params[:search]
@@ -16,13 +16,12 @@ class RestaurantsController < ApplicationController
   end
 
   def pick_rest
-    @restaurant = current_user.restaurants.get_rest(params[:restaurant])
-    # if one response create new
     # if multiple display multiples
     # display with add button
     # when button clicked create new
-
-
+    @restaurant = current_user.restaurants.get_rest(params[:restaurant])
+    # if one response create new
+    # @restaurant = current_user.restarurants.create?
   end
 
   def create
@@ -30,12 +29,12 @@ class RestaurantsController < ApplicationController
   # Response to generate new Restaurant
 
     new_restaurant = Hash.new{|h, k| h[k] = ''}
-
-    new_restaurant[:name] << response['businesses'][0]['name']
-    new_restaurant[:address] << response['businesses'][0]['location']['display_address'].join(', ')
-    new_restaurant[:style] << response['businesses'][0]['categories'][0]['title']
-    new_restaurant[:image] << response['businesses'][0]['image_url']
-    rating = response['businesses'][0]['rating'].to_i
+    
+    new_restaurant[:name] << params['name']
+    new_restaurant[:address] << params['location']['display_address'].join(', ')
+    new_restaurant[:style] << params['categories'][0]['title']
+    new_restaurant[:image] << params['image_url']
+    rating = params['rating'].to_i
     new_restaurant[:rating] = rating
 
     @restaurant = current_user.restaurants.build(new_restaurant)
