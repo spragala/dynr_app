@@ -1,6 +1,6 @@
 <div class='container col-xs-12' id='new-restaurant-container'>
 
-<%= form_for(@restaurant, html: { class: 'form-horizontal col-sm-offset-2 col-sm-8 new-form' }) do |f| %>
+<%= form_for(@restaurant, url: search_rest_path, html: { class: 'form-horizontal col-sm-offset-2 col-sm-8 new-form' }) do |f| %>
   <div class='search-instructions col-sm-offset-2 col-sm-8'>
     <h1> Add a favorite! </h1>
     <p> Enter the restaurant name and the city to add it to your list.

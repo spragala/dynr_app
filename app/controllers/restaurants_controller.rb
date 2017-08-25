@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
   # include HTTParty
   before_action :require_login
+  # before_action :pick_rest, only: [:create]
 
   def index
     if params[:search]
@@ -14,59 +15,35 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.restaurants.build
   end
 
-  def edit
-  end
-
-  def update
-    # TODO - restaurant = current_user.restaurants.find(params[:id])
-    # if @restaurant.update restaurant_params
-    # redirect_to restaurants_path
+  def pick_rest
+    # if multiple display multiples
+    # display with add button
+    # when button clicked create new
+    @restaurant = current_user.restaurants.get_rest(params[:restaurant])
+    # if one response create new
+    # @restaurant = current_user.restarurants.create?
   end
 
   def create
 
-    # Yelp API - Auth Header
-    headers = {
-      "Authorization" => "Bearer " + ENV['yelp_api_key']
-      }
+  # Response to generate new Restaurant
 
-    # Params to correct format for url
-    url_name = restaurant_params['name'].downcase
-    url_city = restaurant_params['address'].downcase
-    url_rest = 'term=' + url_name.gsub(' ','-') + '&' + 'location=' + url_city.gsub(' ','-')
+    new_restaurant = Hash.new{|h, k| h[k] = ''}
+    
+    new_restaurant[:name] << params['name']
+    new_restaurant[:address] << params['location']['display_address'].join(', ')
+    new_restaurant[:style] << params['categories'][0]['title']
+    new_restaurant[:image] << params['image_url']
+    rating = params['rating'].to_i
+    new_restaurant[:rating] = rating
 
-    # HTTParty - businesses/search endpoint
-    endpoint = 'https://api.yelp.com/v3/businesses/search?' << url_rest
-    response = HTTParty.get( endpoint, :headers => headers)
+    @restaurant = current_user.restaurants.build(new_restaurant)
 
-    # Response to generate new Restaurant
-    # TODO loop through the info and cache the resposes for client to pick which restaurant
-    # is the correct one IF there are multiple responses
-    if response.success?
-      new_restaurant = Hash.new{|h, k| h[k] = ''}
-
-      new_restaurant[:name] << response['businesses'][0]['name']
-      new_restaurant[:address] << response['businesses'][0]['location']['display_address'].join(', ')
-      new_restaurant[:style] << response['businesses'][0]['categories'][0]['title']
-      new_restaurant[:image] << response['businesses'][0]['image_url']
-      rating = response['businesses'][0]['rating'].to_i
-      new_restaurant[:rating] = rating
-
-
-
-
-      # TODO more regex on form - remove apostrophes
-
-      @restaurant = current_user.restaurants.build(new_restaurant)
-      if @restaurant.save
-        redirect_to restaurants_path
-       else
-         flash[:error] = 'Something went wrong, try your search again.'
-         redirect_to new_restaurant_path
-      end
-    else
-      flash[:error] = 'No restaurant found with that name, please try again.'
-      redirect_to new_restaurant_path
+    if @restaurant.save
+      redirect_to restaurants_path
+     else
+       flash[:error] = 'Something went wrong, try your search again.'
+       redirect_to new_restaurant_path
     end
 
   end

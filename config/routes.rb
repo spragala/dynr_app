@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   end
 
   resources :restaurants
+  post '/restaurants/search' => 'restaurants#pick_rest', as: "search_rest"
 
 end
