@@ -20,10 +20,10 @@ class RestaurantsController < ApplicationController
     restaurant_info = current_user.restaurants.get_rest(params[:restaurant])
     if restaurant_info[:success]
       @restaurant = restaurant_info[:data]
-      else
-        flash[:error] = 'No restaurant found with that name, please try again.'
-        redirect_to new_restaurant_path
-      end
+    else
+      flash[:error] = 'No restaurant found with that name, please try again.'
+      redirect_to new_restaurant_path
+    end
   end
 
   def create

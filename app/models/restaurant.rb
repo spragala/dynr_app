@@ -24,7 +24,7 @@ class Restaurant < ApplicationRecord
     response = HTTParty.get( endpoint, :headers => headers)
 
     return {
-      success: response.success?,
+      success: response.success? && !response['businesses'].empty?,
       data: response['businesses']
     }
 

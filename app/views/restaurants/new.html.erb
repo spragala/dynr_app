@@ -3,20 +3,18 @@
 <%= form_for(@restaurant, url: search_rest_path, html: { class: 'form-horizontal col-sm-offset-2 col-sm-8 new-form' }) do |f| %>
   <div class='search-instructions col-sm-offset-2 col-sm-8'>
     <h1> Add a favorite! </h1>
-    <p> Enter the restaurant name and the city to add it to your list.
-      Make sure it's the full name of the restaurant and it's spelled correctly. </p>
-      <hr
+    <hr
   </div>
   <div class='field form-group'>
-    <%= f.label :name, 'Restaurant-name', class: 'sr-only', required: true %>
+    <%= f.label :name, 'Restaurant-name', class: 'sr-only' %>
       <div class="col-sm-offset-2 col-sm-8">
-        <%= f.text_field :name, placeholder: 'Restaurant Name', class: 'form-control' %>
+        <%= f.text_field :name, placeholder: 'Restaurant Name', class: 'form-control', required: true %>
       </div>
   </div>
   <div class='field form-group'>
     <%= f.label :address, 'City', class: 'sr-only' %>
       <div class='col-sm-offset-2 col-sm-8'>
-        <%= f.text_field :address, placeholder: 'City', class: 'form-control' %>
+        <%= f.text_field :address, placeholder: 'City', class: 'form-control', required: true %>
       </div>
   </div>
   <div class='actions form-group'>
