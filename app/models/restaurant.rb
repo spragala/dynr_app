@@ -23,12 +23,11 @@ class Restaurant < ApplicationRecord
     endpoint = 'https://api.yelp.com/v3/businesses/search?' << url_rest
     response = HTTParty.get( endpoint, :headers => headers)
 
-    if response.success?
-      return response['businesses']
-    else
-      flash[:error] = 'No restaurant found with that name, please try again.'
-      redirect_to new_restaurant_path
-    end
+    return {
+      success: response.success?,
+      data: response['businesses']
+    }
+
   end
 
 end
