@@ -15,25 +15,21 @@ class RestaurantsController < ApplicationController
     @restaurant = current_user.restaurants.build
   end
 
+
   def pick_rest
-    # if multiple display multiples
-    # display with add button
-    # when button clicked create new
     @restaurant = current_user.restaurants.get_rest(params[:restaurant])
-    # if one response create new
-    # @restaurant = current_user.restarurants.create?
   end
 
   def create
 
-  # Response to generate new Restaurant
-
     new_restaurant = Hash.new{|h, k| h[k] = ''}
-    
+
     new_restaurant[:name] << params['name']
     new_restaurant[:address] << params['location']['display_address'].join(', ')
     new_restaurant[:style] << params['categories'][0]['title']
     new_restaurant[:image] << params['image_url']
+    new_restaurant[:phone] << params['display_phone']
+    new_restaurant[:url] << params['url']
     rating = params['rating'].to_i
     new_restaurant[:rating] = rating
 
@@ -42,7 +38,7 @@ class RestaurantsController < ApplicationController
     if @restaurant.save
       redirect_to restaurants_path
      else
-       flash[:error] = 'Something went wrong, try your search again.'
+       flash[:error] = 'Something went wrong.'
        redirect_to new_restaurant_path
     end
 

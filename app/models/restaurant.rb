@@ -14,12 +14,12 @@ class Restaurant < ApplicationRecord
       "Authorization" => "Bearer " + ENV['yelp_api_key']
       }
 
-    # Params to correct format for url
+    # Correct client input to proper format for Yelp endpoint
     url_name = input['name'].downcase
     url_city = input['address'].downcase
     url_rest = 'term=' + url_name.gsub(' ','-') + '&' + 'location=' + url_city.gsub(' ','-')
 
-    # HTTParty - businesses/search endpoint
+    # HTTParty - Yelp businesses/search endpoint
     endpoint = 'https://api.yelp.com/v3/businesses/search?' << url_rest
     response = HTTParty.get( endpoint, :headers => headers)
 
